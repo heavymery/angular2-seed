@@ -6,35 +6,116 @@
 // Layout
 // ================================== */
 
-@media screen and (max-width: 1024px) {
-  .mdl-layout__header-row {
-    padding-left: 24px;
-  }
-
-  .mdl-layout__tab-bar {
-    padding-left: 16px;
-  }
+.mdl-layout-title {
+  margin-right: 16px;
 }
 
-.mdl-layout__tab-panel {
-  padding: 16px
+.mdl-layout__header-row .mdl-textfield {
+  padding-top: 24px;
 }
 
-@media screen and (min-width: 1025px) {
-  .mdl-layout__tab-panel {
-    padding: 32px 56px;
-  }
+.mdl-layout__header-row .mdl-textfield > .mdl-button--icon {
+  margin-left: 0;
+}
+
+.mdl-layout__header-row .mdl-button {
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+.mdl-layout__drawer-button {
+  outline-style: none;
+}
+
+.mdl-layout__drawer-button .material-icons {
+  margin-top: 12px;
+}
+
+/* =====================================
+// Navigation
+// ================================== */
+
+.mdl-navigation__link--active {
+  background-color: #EEEEEE;
+}
+
+.mdl-navigation__link .material-icons {
+  margin-right: 32px;
+}
+
+/* =====================================
+// Button
+// ================================== */
+
+.mdl-button.mdl-badge {
+  overflow: visible;
+}
+
+.mdl-button.mdl-badge--overlap:after {
+  font-weight: 400;
+  top: -7px;
+  right: -7px;
+}
+
+/* =====================================
+// Menu
+// ================================== */
+
+.mdl-menu__item {
+  padding-right: 24px;
+}
+
+.mdl-menu__item .material-icons {
+  vertical-align: middle;
+  margin-right: 6px;
 }
 
 /* =============================================================================
 // SD(SeeD) prefixed original style
 // ========================================================================== */
 
-.sd-layout-fixed-center {
+/* =====================================
+// Layout
+// ================================== */
+
+.sd-layout-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.sd-layout-center--fixed {
   position: fixed;
+}
+
+.sd-layout-stretch {
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   margin: auto;
+}
+
+.sd-layout-stretch--fixed {
+  position: fixed;
+}
+
+.sd-layout-flex {
+  display: flex;
+}
+
+.sd-layout-flex--align-center {
+  justify-content: center;
+  align-items: center;
+}
+
+/* =====================================
+// Form
+// ================================== */
+
+.sd-fake-autofill-field {
+  visibility: collapse;
+  position: absolute;
 }

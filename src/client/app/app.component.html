@@ -1,29 +1,288 @@
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <head class="mdl-layout__header">
+<div class="mdl-layout mdl-js-layout
+            mdl-layout--fixed-header mdl-layout--fixed-drawer"
+     [class.sd-layout-flex]="!isSignedIn"
+     [class.sd-layout-flex--align-center]="!isSignedIn">
+
+  <!--============================================================================
+  ==  Sign-in form
+  =============================================================================-->
+
+  <div class="mdl-card mdl-shadow--8dp" [hidden]="isSignedIn">
+    <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+      <h2 class="mdl-card__title-text">Angular 2 Seed</h2>
+    </div>
+
+    <div class="mdl-card__supporting-text">
+      <form #signInForm="ngForm">
+        <input type="text" name="fake-username" class="sd-fake-autofill-field">
+        <input type="password" name="fake-password" class="sd-fake-autofill-field">
+
+        <!--====================================
+        ==  Username
+        =====================================-->
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+             id="signin-username-textfield">
+          <input class="mdl-textfield__input" type="text"
+                 id="signin-username-input"
+                 pattern="\w*"
+                 [(ngModel)]="signInModelUsername"
+                 ngControl="username" #username="ngForm"
+                 [required]="username.touched">
+
+          <label class="mdl-textfield__label"
+                 for="signin-username-input">Username</label>
+
+          <span class="mdl-textfield__error"
+                *ngIf="username.errors && username.errors.pattern">
+            Letters and numbers only
+          </span>
+        </div>
+
+        <!--====================================
+        ==  Password
+        =====================================-->
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+             id="signin-password-textfield">
+          <input class="mdl-textfield__input" type="password"
+                 id="signin-password-input"
+                 [(ngModel)]="signInModelPassword"
+                 ngControl="password" #password="ngForm"
+                 [required]="password.touched">
+
+          <label class="mdl-textfield__label"
+                 for="signin-password-input">Password</label>
+        </div>
+
+        <!--====================================
+        ==  Remember me
+        =====================================-->
+
+        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect"
+               id="signin-remember-checkbox"
+               for="signin-remember-input">
+          <input type="checkbox" class="mdl-checkbox__input"
+                 id="signin-remember-input"
+                 [(ngModel)]="signInModelRemember">
+
+          <span class="mdl-checkbox__label">Remember me</span>
+        </label>
+      </form>
+    </div>
+
+    <!--====================================
+    ==  Submit
+    =====================================-->
+
+    <div class="mdl-card__actions mdl-card--border" style="display: flex;">
+      <button class="mdl-button mdl-js-button mdl-button--raised
+                     mdl-button--colored mdl-js-ripple-effect"
+              (click)="signIn();"
+              [disabled]="!signInForm.form.valid">
+        Sign In
+      </button>
+
+      <div class="mdl-layout-spacer"></div>
+
+      <button class="mdl-button mdl-js-button">
+        Forgot passowrd?
+      </button>
+    </div>
+  </div>
+
+  <!--============================================================================
+  ==  Header
+  =============================================================================-->
+
+  <head class="mdl-layout__header" [hidden]="!isSignedIn">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout__title">
-        Angular 2 Seed
+
+      <!--====================================
+      ==  Title
+      =====================================-->
+
+      <span class="mdl-layout-title">
+        <span class="mdl-layout--small-screen-only">Angular 2 Seed /</span><!--
+        --> <span>{{activeRouteName}}</span>
       </span>
 
       <div class="mdl-layout-spacer"></div>
 
-      <button class="mdl-button mdl-js-button mdl-button--icon">
+      <!--====================================
+      ==  Search
+      =====================================-->
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                  mdl-layout--large-screen-only">
+        <label class="mdl-button mdl-js-button mdl-button--icon"
+               for="fixed-header-search-field">
+          <i class="material-icons">search</i>
+        </label>
+
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text"
+                 name="search-field"
+                 id="fixed-header-search-field">
+        </div>
+      </div>
+
+      <!--====================================
+      ==  Notifications (large screen only)
+      =====================================-->
+
+      <button class="mdl-button mdl-js-button mdl-button--icon
+                     mdl-badge mdl-badge--overlap
+                     mdl-layout--large-screen-only"
+              data-badge="1">
+        <i class="material-icons">notifications</i>
+      </button>
+
+      <!--====================================
+      ==  Message (large screen only)
+      =====================================-->
+
+      <button class="mdl-button mdl-js-button mdl-button--icon
+                     mdl-badge mdl-badge--overlap
+                     mdl-layout--large-screen-only"
+              data-badge="2">
+        <i class="material-icons">message</i>
+      </button>
+
+      <!--====================================
+      ==  Account (large screen only)
+      =====================================-->
+
+      <button class="mdl-button mdl-js-button mdl-button--icon
+                     mdl-layout--large-screen-only">
+        <i class="material-icons">account_box</i>
+      </button>
+
+      <!--====================================
+      ==  More (for large screen)
+      =====================================-->
+
+      <button class="mdl-button mdl-js-button mdl-button--icon
+                     mdl-layout--large-screen-only"
+              id="large-screen-more-button">
         <i class="material-icons">more_vert</i>
       </button>
-    </div>
 
-    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-      <a class="mdl-layout__tab"
-         [routerLink]="['/']"
-         [ngClass]="{'is-active': isActiveRoute('/')}">Home</a>
+      <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+          for="large-screen-more-button">
+        <li class="mdl-menu__item mdl-js-ripple-effect"
+            *ngIf="isFullscreenEnabled"
+            [hidden]="isFullscreen"
+            (click)="requestFullScreen();">
+          <i class="material-icons">fullscreen</i><!--
+          --> Fullscreen
+        </li>
 
-      <a class="mdl-layout__tab"
-         [routerLink]="['/about']"
-         [ngClass]="{'is-active': isActiveRoute('/about')}">About</a>
+        <li class="mdl-menu__item mdl-js-ripple-effect"
+            *ngIf="isFullscreenEnabled"
+            [hidden]="!isFullscreen"
+            (click)="exitFullScreen();">
+          <i class="material-icons">fullscreen_exit</i><!--
+          --> Exit Fullscreen
+        </li>
+
+        <li class="mdl-menu__item mdl-js-ripple-effect">
+          <i class="material-icons">settings</i><!--
+          --> Settings
+        </li>
+
+        <li class="mdl-menu__item mdl-js-ripple-effect" (click)="signOut();">
+          <i class="material-icons">exit_to_app</i><!--
+          --> Logout
+        </li>
+      </ul>
+
+      <!--====================================
+      ==  More (for small screen)
+      =====================================-->
+
+      <button class="mdl-button mdl-js-button mdl-button--icon
+                     mdl-layout--small-screen-only"
+              id="small-screen-more-button">
+        <i class="material-icons">more_vert</i>
+      </button>
+
+      <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+          for="small-screen-more-button">
+        <li class="mdl-menu__item mdl-js-ripple-effect">
+          <i class="material-icons">notifications</i><!--
+          --> Notifications
+        </li>
+
+        <li class="mdl-menu__item mdl-js-ripple-effect">
+          <i class="material-icons">message</i><!--
+          --> Message
+        </li>
+
+        <li class="mdl-menu__item mdl-js-ripple-effect
+                   mdl-menu__item--full-bleed-divider">
+          <i class="material-icons">account_box</i><!--
+          --> Account
+        </li>
+
+        <li class="mdl-menu__item mdl-js-ripple-effect"
+            *ngIf="isFullscreenEnabled"
+            [hidden]="isFullscreen"
+            (click)="requestFullScreen();">
+          <i class="material-icons">fullscreen</i><!--
+          --> Fullscreen
+        </li>
+
+        <li class="mdl-menu__item mdl-js-ripple-effect"
+            *ngIf="isFullscreenEnabled"
+            [hidden]="!isFullscreen"
+            (click)="exitFullScreen();">
+          <i class="material-icons">fullscreen_exit</i><!--
+          --> Exit Fullscreen
+        </li>
+
+        <li class="mdl-menu__item mdl-js-ripple-effect">
+          <i class="material-icons">settings</i><!--
+          --> Settings
+        </li>
+
+        <li class="mdl-menu__item mdl-js-ripple-effect" (click)="signOut();">
+          <i class="material-icons">exit_to_app</i><!--
+          --> Logout
+        </li>
+      </ul>
+
     </div>
   </head>
 
-  <main class="mdl-layout__content">
+  <!--============================================================================
+  ==  Drawer
+  =============================================================================-->
+
+  <div class="mdl-layout__drawer" [hidden]="!isSignedIn">
+    <span class="mdl-layout-title">Angular 2 Seed</span>
+
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link"
+         [class.mdl-navigation__link--active]="isActiveRoute('/')"
+         [routerLink]="['/']">
+        <i class="material-icons" role="presentation">home</i>Home
+      </a>
+
+      <a class="mdl-navigation__link"
+         [class.mdl-navigation__link--active]="isActiveRoute('/about')"
+         [routerLink]="['/about']">
+        <i class="material-icons" role="presentation">help_outline</i>About
+      </a>
+    </nav>
+  </div>
+
+  <!--============================================================================
+  ==  Content
+  =============================================================================-->
+
+  <main class="mdl-layout__content" [hidden]="!isSignedIn">
     <router-outlet></router-outlet>
   </main>
+
 </div>

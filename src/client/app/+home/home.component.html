@@ -1,23 +1,25 @@
-<section class="mdl-layout__tab-panel is-active">
-  <p>
-    Howdy! Here's a list of awesome computer scientists.
-    Do you know any others? Add to the list yourself.
-  </p>
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--12-col">
+    <p>
+      Howdy! Here's a list of awesome computer scientists.
+      Do you know any others? Add to the list yourself.
+    </p>
 
-  <form (submit)="addName()">
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="new-name-textfield">
-      <input class="mdl-textfield__input" type="text" id="new-name-input" [(ngModel)]="newName">
-      <label class="mdl-textfield__label" for="new-name-input">Awesome Computer Scientist</label>
-    </div>
+    <form (submit)="addName()">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="new-name-textfield">
+        <input class="mdl-textfield__input" type="text" id="new-name-input" [(ngModel)]="newName">
+        <label class="mdl-textfield__label" for="new-name-input">Awesome Computer Scientist</label>
+      </div>
 
-    <button type="submit"
-            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-            [disabled]="isEmpty(newName)">
-      Add
-    </button>
-  </form>
+      <button type="submit"
+              class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+              [disabled]="isEmpty(newName)">
+        Add
+      </button>
+    </form>
 
-  <ul class="mdl-list">
-    <li class="mdl-list__item" *ngFor="let name of nameListService.get()">{{name}}</li>
-  </ul>
-</section>
+    <ul class="mdl-list">
+      <li class="mdl-list__item" *ngFor="let name of nameListService.get()">{{name}}</li>
+    </ul>
+  </div>
+</div>
