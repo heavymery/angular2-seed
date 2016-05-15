@@ -270,6 +270,12 @@
       </a>
 
       <a class="mdl-navigation__link"
+         [class.mdl-navigation__link--active]="isActiveRoute('/dashboard')"
+         [routerLink]="['/dashboard']">
+        <i class="material-icons" role="presentation">dashboard</i>Dashboard
+      </a>
+
+      <a class="mdl-navigation__link"
          [class.mdl-navigation__link--active]="isActiveRoute('/about')"
          [routerLink]="['/about']">
         <i class="material-icons" role="presentation">help_outline</i>About

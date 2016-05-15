@@ -1,9 +1,11 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ROUTER_DIRECTIVES, Routes, Router } from '@angular/router';
 
-import { AboutComponent } from './+about/index';
-import { HomeComponent } from './+home/index';
 import { NameListService } from './shared/index';
+
+import { HomeComponent } from './+home/index';
+import { DashboardComponent } from './+dashboard/index';
+import { AboutComponent } from './+about/index';
 
 declare var componentHandler: any;
 declare var document: any;
@@ -29,6 +31,10 @@ enum MQScreenSize {
   {
     path: '/',
     component: HomeComponent
+  },
+  {
+    path: '/dashboard',
+    component: DashboardComponent
   },
   {
     path: '/about',
