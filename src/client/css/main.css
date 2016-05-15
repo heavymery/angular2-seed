@@ -70,6 +70,61 @@
   margin-right: 6px;
 }
 
+/* =====================================
+// Data table
+// ================================== */
+
+.mdl-data-table {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.mdl-data-table th {
+  user-select: none;
+}
+
+.mdl-data-table th span {
+  outline-style: none;
+}
+
+.mdl-data-table th .material-icons {
+  vertical-align: middle;
+  margin-right: 6px;
+  font-size: 18px;
+}
+
+.mdl-data-table__header--select-checkBox {
+  width: 67px;
+}
+
+.mdl-data-table__header--sortable {
+  cursor: pointer;
+}
+
+.mdl-data-table__placeholder {
+  color: rgba(0, 0, 0, 0.38);
+  cursor: pointer;
+}
+
+/* =====================================
+// Dialog
+// ================================== */
+
+.mdl-dialog {
+  background-color: white;
+}
+
+.mdl-dialog--position-absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: auto;
+}
+
+.mdl-dialog__content {
+  white-space: normal;
+}
+
 /* =============================================================================
 // SD(SeeD) prefixed original style
 // ========================================================================== */
@@ -118,4 +173,45 @@
 .sd-fake-autofill-field {
   visibility: collapse;
   position: absolute;
+}
+
+/* =============================================================================
+// Polyfills
+// ========================================================================== */
+
+/* =====================================
+// Dialog
+// ================================== */
+
+/* FIXME: Polyfilled dialog breaking layout on MDL. */
+
+dialog {
+  position: fixed;
+  top:50%;
+  transform: translateY(-50%);
+  left: 0px;
+  right: 0px;
+  width: -webkit-fit-content;
+  height: -webkit-fit-content;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  color: black;
+  margin: auto;
+  border-width: initial;
+  border-style: solid;
+  border-color: initial;
+  padding: 1em;
+  background: white;
+}
+
+dialog + .backdrop {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.0980392);
 }

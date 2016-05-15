@@ -1,0 +1,121 @@
+<table class="mdl-data-table mdl-js-data-table">
+
+  <!--============================================================================
+  ==  Column headers
+  =============================================================================-->
+
+  <thead>
+    <tr>
+
+      <!--====================================
+      ==  Select checkbox column
+      =====================================-->
+      
+      <!-- TODO: Indeterminate checkbox? -->
+
+      <th *ngIf="selectable"
+          class="mdl-data-table__header--select-checkBox">
+        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+          <input type="checkbox" class="mdl-checkbox__input"
+                 [(ngModel)]="isSelectAllChecked"
+                 (change)="toggleSelectAll()">
+        </label>
+      </th>
+
+      <!--====================================
+      ==  Other columns
+      =====================================-->
+      
+      <th *ngFor="let column of columns"
+          [class.mdl-data-table__cell--non-numeric]="column.nonNumeric"
+          [class.mdl-data-table__header--sortable]="column.sortable"
+          [class.mdl-data-table__header--sorted-ascending]="isSortedAscending(column.field)"
+          [class.mdl-data-table__header--sorted-descending]="isSortedDescending(column.field)"
+          (click)="column.sortable && orderBy(column.field)">
+        <span>{{column.label}}</span>
+      </th>
+
+      <!-- TODO: Tooltip for column header. -->
+      <!--<th class="mdl-data-table__cell--non-numeric">
+        <span id="data-label-header">Label</span>
+
+        <span class="mdl-tooltip" for="data-label-header">
+          The label of data.
+        </span>
+      </th>-->
+
+      <!-- TODO: Editable column. -->
+      <!--<th class="mdl-data-table__cell--non-numeric">
+        <span id="data-comments-header">
+          <i class="material-icons">comment</i> Comments
+        </span>
+
+        <span class="mdl-tooltip" for="data-comments-header">
+          The comments of data.
+        </span>
+      </th>-->
+
+    </tr>
+  </thead>
+
+  <!--============================================================================
+  ==  Table content
+  =============================================================================-->
+
+  <tbody>
+    <tr *ngFor="let item of data"
+        [class.is-selected]="isSelected(item)">
+
+      <!--====================================
+      ==  Select checkbox column
+      =====================================-->
+
+      <td *ngIf="selectable">
+        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect"
+               [class.is-checked]="isSelected(item)">
+          <input type="checkbox" class="mdl-checkbox__input"
+                 [checked]="isSelected(item)"
+                 (change)="toggleSelect(item)">
+        </label>
+      </td>
+
+      <!--====================================
+      ==  Other columns
+      =====================================-->
+
+      <td *ngFor="let column of columns"
+          [class.mdl-data-table__cell--non-numeric]="column.nonNumeric">
+        {{item[column.field]}}
+        <!-- TODO: Binding pipe to display currency, number, etc. -->
+      </td>
+
+      <!-- TODO: Editable column. -->
+      <!--<td class="mdl-data-table__cell--non-numeric">
+        <span class="mdl-data-table__placeholder"
+              (click)="showEditDialog()">
+          Add a comment
+        </span>
+        
+        <div class="mdl-dialog mdl-dialog--position-absolute mdl-shadow--2dp">
+          <div class="mdl-dialog__content">
+            <p>
+              Allowing us to collect data will let us get you the information you want faster.
+            </p>
+          </div>
+
+          <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button"
+              Agree
+            </button>
+            
+            <button type="button" class="mdl-button"
+              Disagree
+            </button>
+          </div>
+        </div>
+      </td>-->
+
+    </tr>
+  </tbody>
+
+</table>
