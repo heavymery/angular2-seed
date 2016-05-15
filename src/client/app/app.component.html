@@ -1,3 +1,29 @@
-<sd-toolbar></sd-toolbar>
-<sd-navbar></sd-navbar>
-<router-outlet></router-outlet>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <head class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <span class="mdl-layout__title">
+        Angular 2 Seed
+      </span>
+
+      <div class="mdl-layout-spacer"></div>
+
+      <button class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">more_vert</i>
+      </button>
+    </div>
+
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+      <a class="mdl-layout__tab"
+         [routerLink]="['/']"
+         [ngClass]="{'is-active': isActiveRoute('/')}">Home</a>
+
+      <a class="mdl-layout__tab"
+         [routerLink]="['/about']"
+         [ngClass]="{'is-active': isActiveRoute('/about')}">About</a>
+    </div>
+  </head>
+
+  <main class="mdl-layout__content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

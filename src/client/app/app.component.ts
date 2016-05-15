@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { ROUTER_DIRECTIVES, Routes } from '@angular/router';
 
 import { AboutComponent } from './+about/index';
 import { HomeComponent } from './+home/index';
-import { NameListService, NavbarComponent, ToolbarComponent } from './shared/index';
+import { NameListService } from './shared/index';
+
+declare var componentHandler: any;
 
 @Component({
   selector: 'sd-app',
   viewProviders: [NameListService],
   templateUrl: 'app/app.component.html',
-  directives: [ROUTER_DIRECTIVES, NavbarComponent, ToolbarComponent]
+  directives: [ROUTER_DIRECTIVES]
 })
 @Routes([
   {
@@ -27,4 +29,16 @@ import { NameListService, NavbarComponent, ToolbarComponent } from './shared/ind
  * applications routes, configuring the paths for the lazy
  * loaded components (HomeComponent, AboutComponent).
  */
-export class AppComponent {}
+export class AppComponent implements AfterViewInit {
+  isActiveRoute(pathName: String) {
+    if (location.pathname === pathName) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  ngAfterViewInit() {
+    componentHandler.upgradeAllRegistered();
+  }
+}

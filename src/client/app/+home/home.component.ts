@@ -1,7 +1,9 @@
 import { FORM_DIRECTIVES } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 
 import { NameListService } from '../shared/index';
+
+declare var componentHandler: any;
 
 @Component({
   selector: 'sd-home',
@@ -12,7 +14,7 @@ import { NameListService } from '../shared/index';
 /**
  * This class represents the lazy loaded HomeComponent.
  */
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit {
 
   newName: string;
 
@@ -32,7 +34,17 @@ export class HomeComponent {
   addName(): boolean {
     this.nameListService.add(this.newName);
     this.newName = '';
+
+    document.getElementById('new-name-textfield').classList.remove('is-dirty');
+
     return false;
   }
 
+  isEmpty(value: String): boolean {
+    return !value || value.replace(/\s/ig,'') === '';
+  }
+
+  ngAfterViewInit() {
+    componentHandler.upgradeAllRegistered();
+  }
 }

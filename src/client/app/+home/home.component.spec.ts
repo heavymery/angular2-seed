@@ -13,10 +13,10 @@ import { HomeComponent } from './home.component';
 
 export function main() {
   describe('Home component', () => {
-    it('should work',
+    it('addName method should work',
       inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
         tcb.createAsync(TestComponent)
-	  .then((rootTC: any) => {
+          .then((rootTC: any) => {
             rootTC.detectChanges();
 
             let homeInstance = rootTC.debugElement.children[0].componentInstance;
@@ -27,16 +27,27 @@ export function main() {
 
             expect(homeInstance.nameListService).toEqual(jasmine.any(NameListService));
             expect(nameListLen()).toEqual(4);
-	    expect(getDOM().querySelectorAll(homeDOMEl, 'li').length).toEqual(nameListLen());
+            expect(getDOM().querySelectorAll(homeDOMEl, 'li').length).toEqual(nameListLen());
 
             homeInstance.newName = 'Minko';
             homeInstance.addName();
             rootTC.detectChanges();
 
             expect(nameListLen()).toEqual(5);
-	    expect(getDOM().querySelectorAll(homeDOMEl, 'li').length).toEqual(nameListLen());
+            expect(getDOM().querySelectorAll(homeDOMEl, 'li').length).toEqual(nameListLen());
 
-	    expect(getDOM().querySelectorAll(homeDOMEl, 'li')[4].textContent).toEqual('Minko');
+            expect(getDOM().querySelectorAll(homeDOMEl, 'li')[4].textContent).toEqual('Minko');
+          });
+      }));
+
+    it('isEmpty method should work',
+      inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+        tcb.createAsync(TestComponent)
+          .then((rootTC: any) => {
+
+            let homeInstance = rootTC.debugElement.children[0].componentInstance;
+
+            expect(homeInstance.isEmpty(' ')).toEqual(true);
           });
       }));
   });
